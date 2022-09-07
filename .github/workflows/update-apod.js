@@ -11,7 +11,7 @@ APOD    = ({ copyright, date, explanation, hdurl, title, url }) =>
     ${explanation.split('    ')[0]}
   </article>
   <br><br>
-  <input id="timestamp" type="date" min="1995-06-16" max="${new Date().toISOString().split('T')[0]}" value="${date}">
+  <input id="timestamp" type="date" min="1995-06-16" max="${new Date().toISOString().split('T')[0]}" value="${date}" onchange="timestampChange(this)">
   <a href="https://apod.nasa.gov/apod/astropix.html"><address id="credits">${copyright ? ('© ' + copyright) : ('⨀ ' + 'Public domain')}</address></a>
 </main>
 `
