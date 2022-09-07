@@ -6,7 +6,7 @@ function APOD(apod) {
 '      '+apod.explanation+'\n'+
 '    </article>\n'+
 '    <br><br>\n'+
-'    <input id="timestamp" type="date" min="1995-06-16" max="'+new Date().toISOString().split('T')[0]+'" value="'+apod.date+'">\n'+
+'    <input id="timestamp" type="date" min="1995-06-16" max="'+new Date().toISOString().split('T')[0]+'" value="'+apod.date+'" onchange="timestampChange(this)">\n'+
 '    <a href="https://apod.nasa.gov/apod/astropix.html"><address id="credits">'+(apod.copyright ? ('© ' + apod.copyright) : ('⨀ ' + 'Public domain'))+'</address></a>\n'+
 '  </main>\n'
   if(apod.media_type != 'image')  {
@@ -35,6 +35,7 @@ function displayAPOD(apod) {
 '      <meta name="color-scheme" content="dark">\n'+
 '      <link rel="stylesheet" href="style.css">\n'+
 '      <link rel="icon" href="https://apod.nasa.gov/apod/calendar/today.jpg">\n'+
+'      <script defer src="script.js"></script>\n'+
 '    </head>\n'+
 '    <body>\n'+
         APOD(apod)+'\n'+
@@ -42,10 +43,10 @@ function displayAPOD(apod) {
 '\n'
 }
 
-timestamp.onchange = function() {
-  if (timestamp.value >= timestamp.min && timestamp.value <= timestamp.max) {
+function timestampChange(datepicker) {
+  if (datepicker.value >= datepicker.min && datepicker.value <= datepicker.max) {
     with (new XMLHttpRequest()) {
-      open("GET", 'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date='+timestamp.value)
+      open("GET", 'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date='+datepicker.value)
       onload = function() { displayAPOD(JSON.parse(this.responseText)) }
       send()
     }
