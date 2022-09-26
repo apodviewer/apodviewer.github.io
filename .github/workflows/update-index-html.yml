@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron: '9 5 * * *'
+    - cron: '2 5 * * *'
   push:
     branches:
       - 'master'
@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node_version: '14'
+          node-version: '14'
 
       - run: npm install jsdom
       - run: wget 'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY' -O apod.json
